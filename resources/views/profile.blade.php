@@ -69,7 +69,7 @@
 <body>
     <div class="profile-card">
         <!-- Menggunakan nama dari variabel sebagai heading -->
-        <img src="{{ asset('img/atreides.jpg') }}" alt="Profile Photo">
+        <img src="{{ asset('assets/img/atreides.jpg') }}" alt="Profile Photo">
         <h2>{{ $nama }}</h2> <!-- Mengganti "Profile" dengan nama pengguna -->
         <table>
             <tbody>
