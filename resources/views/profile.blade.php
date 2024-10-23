@@ -85,6 +85,8 @@
                     <th>Kelas</th>
                     <td>{{ $nama_kelas ?? 'Kelas tidak ditemukan' }}</td>
                 </tr>
+
+
             </tbody>
         </table>
     </div>

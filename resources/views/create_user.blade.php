@@ -17,7 +17,7 @@
                     <h1>Form Create User</h1>
                 </div>
                 <div class="card-body">
-                    <!-- Form to collect name, npm, and class -->
+                    <!-- Form to collect name, npm, class, and ipk -->
                     <form action="{{ route('user.store') }}" method="POST">
                         @csrf <!-- Laravel CSRF protection -->
 
@@ -41,6 +41,12 @@
                                     <option value="{{ $kelasItem->id }}">{{ $kelasItem->nama_kelas }}</option>
                                 @endforeach
                             </select>
+                        </div>
+
+                        <!-- IPK input -->
+                        <div class="form-group">
+                            <label for="ipk">IPK:</label>
+                            <input type="number" id="ipk" name="ipk" class="form-control" step="0.01" min="0" max="4" placeholder="Masukkan IPK (0.00 - 4.00)" >
                         </div>
 
                         <!-- Submit button -->
