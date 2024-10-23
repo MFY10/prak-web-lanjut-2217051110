@@ -8,6 +8,25 @@ use App\Models\UserModel;
 
 class UserController extends Controller
 {
+    public $userModel;
+    public $kelasModel;
+
+    public function __construct(){
+ 
+        $this->userModel = new UserModel();
+ 
+        $this->kelasModel = new Kelas();
+    }
+
+    public function index(){
+    $data = [
+        'title' => 'Create User',
+        'kelas' => $this->userModel->getUser(),
+    ];
+ return view('list_user', $data);
+}
+
+
     public function profile($nama = '', $kelas = '', $npm = ''){
     
         $data = [
@@ -22,9 +41,16 @@ class UserController extends Controller
     // Fungsi create untuk menampilkan form
     public function create()
     {
-        return view('create_user', [
-            'kelas' => Kelas::all(),
-        ]);
+        $kelasModel = new Kelas();
+        
+        $kelas = $kelasModel->getKelas();
+        
+        $data = [
+            'tittle' => 'Create User',
+            'kelas' => $kelas,
+        ];
+ 
+        return view('create_user', $data);
     }
 
     // Fungsi store untuk menerima data dari form dan menampilkan view profile
@@ -47,5 +73,10 @@ class UserController extends Controller
             'npm' => $user->npm,
             'nama_kelas' => $user->kelas->nama_kelas ?? 'Kelas ditemukan',
         ]);
+
+        return redirect()->to('/user');
+
+        
+
     }
 }
