@@ -61,6 +61,7 @@ class UserController extends Controller
             'nama' => 'required|string|max:255',
             'npm' => 'required|string|max:10',
             'kelas_id' => 'required|exists:kelas,id',
+            'ipk' => 'nullable|numeric|min:0|max:4.00', // Validasi IPK
         ]);
 
         $user = UserModel::create($validatedData);
@@ -75,8 +76,25 @@ class UserController extends Controller
         ]);
 
         return redirect()->to('/user');
-
-        
-
     }
+
+    public function show($id){
+    $LayananRekomenUmum = ModelLayananRekomendasiUmum::where('encrypted_id', $id)->first();
+
+    $data = [
+        'nama_mhs' => auth()->user()->mahasiswa->nama_mahasiswa,
+        'npm' => auth()->user()->mahasiswa->npm,
+        'jurusan' => auth()->user()->prodi->jurusan->nama,
+        'prodi' => auth()->user()->prodi->nama,
+        'encrypted_id' => $LayananRekomenUmum->encrypted_id,
+        'ipk' => $LayananRekomenUmum->ipk,
+        'kebutuhan_rekomen' => $LayananRekomenUmum->kebutuhan_rekomen,
+        'tanggal' => Carbon::parse($LayananRekomenUmum->created_at)
+            ->locale('id_ID')
+            ->isoFormat('D MMMM YYYY, HH:mm'),
+        ];
+
+    return view('layanan_fakultas.akademik.permohonan.rekomendasi_umum.show', $data);
+    }
+
 }
